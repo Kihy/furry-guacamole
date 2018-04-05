@@ -3,6 +3,8 @@ from threading import Thread
 # Code to thread reading camera input.
 # Source : Adrian Rosebrock
 # https://www.pyimagesearch.com/2017/02/06/faster-video-file-fps-with-cv2-videocapture-and-opencv/
+
+
 class WebcamVideoStream:
     def __init__(self, src, size=None):
         # initialize the video camera stream and read the first frame
@@ -10,8 +12,7 @@ class WebcamVideoStream:
 
         self.stream = cv2.VideoCapture(src)
 
-
-        if size!=None:
+        if size != None:
             self.stream.set(cv2.CAP_PROP_FRAME_WIDTH, size[0])
             self.stream.set(cv2.CAP_PROP_FRAME_HEIGHT, size[1])
         (self.grabbed, self.frame) = self.stream.read()
@@ -41,7 +42,7 @@ class WebcamVideoStream:
 
     def size(self):
         # return size of the capture device
-        return self.stream.get(3), self.stream.get(4)
+        return int(self.stream.get(3)), int(self.stream.get(4))
 
     def stop(self):
         # indicate that the thread should be stopped

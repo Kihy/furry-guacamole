@@ -7,11 +7,7 @@ import time
 import datetime
 import argparse
 from Webcam import WebcamVideoStream
-import tkinter
-
-root = tkinter.Tk()
-width = root.winfo_screenwidth()
-height = root.winfo_screenheight()
+import face_recognition
 
 
 frame_processed = 0
@@ -26,12 +22,14 @@ def worker(input_q, output_q, cap_params, frame_processed):
     detection_graph, sess = detector_utils.load_inference_graph()
     sess = tf.Session(graph=detection_graph)
     while True:
-        #print("> ===== in worker loop, frame ", frame_processed
+        # print("> ===== in worker loop, frame ", frame_processed
         frame = input_q.get()
         if (frame is not None):
             # actual detection
             boxes, scores = detector_utils.detect_objects(
                 frame, detection_graph, sess)
+
+            print(boxes, scores)
             # draw bounding boxes
             detector_utils.draw_box_on_image(
                 cap_params['num_hands_detect'], cap_params["score_thresh"], scores, boxes, cap_params['im_width'], cap_params['im_height'], frame)
@@ -43,17 +41,15 @@ def worker(input_q, output_q, cap_params, frame_processed):
 
 
 if __name__ == '__main__':
-    #dictionary to store parameters
+    # dictionary to store parameters
 
-    params={
-    "source":0,
-    "num_hands":2,
-    "display_fps":True,
-    "width":width,
-    "height":height,
-    "display_box":True,
-    "num_worker":4,
-    "queue_size":5
+    params = {
+        "source": 0,
+        "num_hands": 2,
+        "display_fps": True,
+        "display_box": True,
+        "num_worker": 2,
+        "queue_size": 5
     }
 
     input_q = Queue(maxsize=params["queue_size"])
@@ -81,13 +77,11 @@ if __name__ == '__main__':
     while True:
         frame = video_capture.read()
 
-
         frame = cv2.flip(frame, 1)
         index += 1
 
         input_q.put(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
         output_frame = output_q.get()
-
         output_frame = cv2.cvtColor(output_frame, cv2.COLOR_RGB2BGR)
 
         elapsed_time = (datetime.datetime.now() -
