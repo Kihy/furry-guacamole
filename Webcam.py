@@ -40,6 +40,9 @@ class WebcamVideoStream:
         # return the frame most recently read
         return self.frame
 
+    def ratio(self):
+        return float(self.stream.get(3))/float(self.stream.get(4))
+
     def size(self):
         # return size of the capture device
         return int(self.stream.get(3)), int(self.stream.get(4))

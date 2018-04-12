@@ -10,12 +10,12 @@ class Snake:
     def __init__(self):
         self.length=5;
         self.position=[np.array([i,i]) for i in range(self.length)]
-        self.speed=np.array([50,50])
+        self.speed=np.array([50,50])#speed per second
         self.direction=np.array([0,0])
 
-    def set_direction(self,hand_location):
+    def set_direction(self,hand_location,elapsed_time):
         direction=np.array(hand_location)- self.head_pos()
-        direction=self.speed*normalize(direction)
+        direction=self.speed*elapsed_time*normalize(direction)
         self.direction=np.rint(direction).astype(int)
 
     def move(self):
