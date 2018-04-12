@@ -23,6 +23,7 @@ class App:
         self.snake = Snake()
         self.detection_graph, sess = detector_utils.load_inference_graph()
         self.sess = tf.Session(graph=self.detection_graph)
+        self.game_start=False
         # dictionary to store parameters
         self.params = {
             "source": 0,
@@ -38,7 +39,7 @@ class App:
         self.screen_size = self.video_capture.size()
 
     def game_logic(self, hand_locations, background, elapsed_time):
-        if int(time.time()-self.game_time)%3==0:
+        if random.getrandbits(2)==0:
             self.generate_food()
         if len(hand_locations) != 0:
             pointer_location = self.hand_projection(hand_locations[0])
@@ -49,25 +50,30 @@ class App:
         for i in self.snake.get_position():
             cv2.circle(background, tuple(i), 5, (255, 255, 255), -1)
         #check food is eaten
-        for i in range(len(self.food_list)):
-            #todo:lakdfjalkd
-            if self.is_within(self.snake.head_pos(),self.food_list[i],10):
-                self.food_list.pop(i)
+        for i in self.food_list:
+            if self.is_within(self.snake.head_pos(),i,20):
+                self.food_list.remove(i)
                 self.score+=1
         #draw food
         for i in self.food_list:
             cv2.circle(background, i, 10, (239,35,66), -1)
+
+        if time.time()-self.game_time>60:
+            self.__init__()
 
 
     def is_within(self,pos1,pos2,delta):
         return np.linalg.norm(pos1-pos2)<delta
 
     def generate_food(self):
-        x=random.randint(self.user_pic.shape[1],int(self.screen_size[1]*0.75))
-        y=random.randint(self.user_pic.shape[0],int(self.screen_size[0]*0.75))
+        x=random.randint(self.user_pic.shape[1],int(self.screen_size[0]*0.75))
+        y=random.randint(self.user_pic.shape[0],int(self.screen_size[1]*0.75))
         self.food_list.append((x,y))
 
     def wait_to_start(self, hand_locations, head_locations, frame, hand_boxes):
+        if len(head_locations)==0 or len(hand_locations)==0:
+            self.init_time=None
+            return
         for top, right, bottom, left in head_locations:
             for i in range(len(hand_locations)):
                 hand = hand_locations[i]
@@ -86,6 +92,7 @@ class App:
                                           hand[1] + self.hand_height, hand[0] + self.hand_width]
                 else:
                     self.init_time = None
+
 
     def hand_projection(self, hand_location):
         x = hand_location[0] - self.hand_area[1]
@@ -130,11 +137,11 @@ class App:
 
         head_location = None
         while True:
-            start_time = time.time()
+            start_time=time.time()
             # read video and background
             background = cv2.imread("images/background.jpg", 1)
             frame = self.video_capture.read()
-
+            fps+=1
             background = cv2.resize(background, self.video_capture.size())
 
             # toggle toggle
