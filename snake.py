@@ -7,9 +7,11 @@ def normalize(direction):
     return direction/norm
 
 class Snake:
-    def __init__(self):
+    def __init__(self,x,y):
+        self.x=x
+        self.y=y
         self.length=5;
-        self.position=[np.array([i,i]) for i in range(self.length)]
+        self.position=[np.array([100+i,100+i]) for i in range(self.length)]
         self.speed=np.array([50,50])#speed per second
         self.direction=np.array([0,0])
 
@@ -20,6 +22,9 @@ class Snake:
 
     def move(self):
         next_point= self.position[0]+self.direction
+
+        next_point[0]%=self.x
+        next_point[1]%=self.y
         self.position.insert(0,next_point)
         if len(self.position)>self.length:
             self.position.pop()
