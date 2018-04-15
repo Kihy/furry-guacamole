@@ -29,7 +29,7 @@ class App:
 
         self.high_score = 0
         self.high_score_pic = None
-        self.detection_graph, sess = detector_utils.load_inference_graph()
+        self.detection_graph, sess = detector_utils.load_inference_graph("/frozen_inference_graph.pb")
         self.sess = tf.Session(graph=self.detection_graph)
         self.game_start = False
         # dictionary to store parameters
@@ -150,7 +150,7 @@ class App:
                               (right, bottom), (0, 0, 255), 2)
             head_location = [top, right, bottom, left]
             head_locations.append(head_location)
-        return head_locations
+        return sorted(head_locations,key=lambda x:(x[2]-x[0])*(x[1]-x[3]))
 
     def detect_hands(self, background, frame):
         # actual detection
@@ -164,6 +164,7 @@ class App:
         return detector_utils.find_hand_in_image(
             self.params['num_hands_detect'],
             self.params["score_thresh"], scores, boxes, background, not self.game_start)
+
 
     def center_text_X(self, text, background, y):
         text_size = cv2.getTextSize(text, self.font, 1, 2)[0]
@@ -199,7 +200,7 @@ class App:
                 break
 
             hand_locations, hand_boxes = self.detect_hands(background, frame)
-            face_locations = self.detect_face(background, frame_small)
+
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
@@ -229,6 +230,7 @@ class App:
                     self.reset()
 
             else:
+                face_locations = self.detect_face(background, frame_small)
                 if self.init_time is None:
                     time_remain = 3
                 else:
