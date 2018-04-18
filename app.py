@@ -175,17 +175,17 @@ class App:
     def start(self):
         # flag to check if game has started
         self.game_start = False
-        fps = 0
+        frames = 0
         # use this flag to only process every second frame
         toggle = True
-
+        start_time2=time.time()
         head_location = None
         while True:
             start_time = time.time()
             # read video and background
             background = cv2.imread("images/background.jpg", 1)
             frame = self.video_capture.read()
-            fps += 1
+            frames += 1
             background = cv2.resize(background, self.video_capture.size())
 
             # toggle toggle
@@ -207,7 +207,7 @@ class App:
             frame_small = cv2.cvtColor(frame_small, cv2.COLOR_RGB2BGR)
             elapsed_time = (time.time() - start_time)
 
-            fps = 1 / elapsed_time
+            fps = frames / (time.time()-start_time2)
 
             if self.game_start:
                 if self.game_time is None:

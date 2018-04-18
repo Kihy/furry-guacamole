@@ -1,0 +1,75 @@
+palm1.png
+1
+0 0 134 133
+palm2.png
+1
+13 7 115 142
+palm3.png
+1
+8 3 86 139
+2018-04-16-140620_1.jpg
+1
+588 256 706 412
+2018-04-16-140620_2.jpg
+1
+291 243 424 385
+2018-04-16-140620_4.jpg
+1
+889 259 1036 415
+2018-04-16-140620_5.jpg
+1
+643 118 786 250
+2018-04-16-140620_8.jpg
+1
+82 286 235 427
+hand2.JPG
+1
+73 14 212 172
+wave4.jpg
+1
+246 16 305 90
+wave3.jpg
+1
+291 16 391 117
+tumblr_mcnt4lBsUZ1qc7ly2o1_1280.jpg
+1
+136 93 576 783
+myo-on-arm-wave.jpg
+1
+619 138 955 369
+Old-man-black-white-hand-palm-lines.jpg
+2
+66 58 514 622
+517 60 925 619
+original.jpg
+1
+628 393 849 651
+palm-human-hand-creases-lines.jpg
+1
+126 33 420 636
+president-barack-obama-right-hand-waving.jpg
+1
+20 20 244 322
+PL_W42_W43_TIP_1.jpg
+2
+37 97 160 187
+450 303 532 349
+president-george-w-bush-right-hand-inauguration.jpg
+1
+47 99 158 244
+shortstack-blog-most-popular-hashtags.jpg
+1
+401 170 676 433
+trump.jpg
+1
+286 132 609 458
+wave2.jpg
+1
+396 214 637 445
+Webcam-Wave.jpg
+1
+33 144 111 246
+what-makes-people-happy1.jpg
+2
+107 344 193 408
+797 343 876 403
