@@ -12,6 +12,7 @@ rcParams['font.family'] = 'serif'
 rcParams['font.serif'] = ['Times New Roman']
 
 def IOU(boxA, boxB):
+    """Calculates area of intersection over union for boxA and boxB"""
     # determine the (x, y)-coordinates of the intersection rectangle
     xA = max(boxA[0], boxB[0])
     yA = max(boxA[1], boxB[1])
@@ -36,6 +37,7 @@ def IOU(boxA, boxB):
 
 
 def test_face(iou_threshold=0.5,size=1):
+    """tests the face detector with given iou and image scale"""
     labels = open("test/face_label_no_small.txt", "r")
     path = labels.readline().rstrip()
     total = 0
@@ -88,6 +90,7 @@ def test_face(iou_threshold=0.5,size=1):
 
 
 def test_hand(iou_threshold=0.5,size=1):
+    """tests the hand detector with given iou and scale"""
     detection_graph, sess = detector_utils.load_inference_graph(
         "/frozen_inference_graph.pb")
     sess = tf.Session(graph=detection_graph)
@@ -151,6 +154,7 @@ def test_hand(iou_threshold=0.5,size=1):
     print("average_time:",total_time/num_pic)
     return true_positive/(true_positive+false_positive), total_time/num_pic
 def test_scale():
+    """tests the effect of scaling on accuracy"""
     data={'average_time':[],
     'picture_scale':[],
     'precision':[]}

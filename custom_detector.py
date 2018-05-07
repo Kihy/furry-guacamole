@@ -11,6 +11,8 @@ import face_recognition
 from snake import Snake
 from snake_gui import *
 
+"""Deprecated file"""
+
 snake=Snake()
 # dictionary to store parameters
 detection_graph, sess = detector_utils.load_inference_graph()

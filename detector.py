@@ -9,7 +9,7 @@ import argparse
 from Webcam import WebcamVideoStream
 import face_recognition
 
-
+"""deprecated file"""
 frame_processed = 0
 score_thresh = 0.2
 
