@@ -7,6 +7,9 @@ import scipy.io
 from handtracking.utils import detector_utils
 import time
 import matplotlib.pyplot as plt
+from matplotlib import rcParams
+rcParams['font.family'] = 'serif'
+rcParams['font.serif'] = ['Times New Roman']
 
 def IOU(boxA, boxB):
     # determine the (x, y)-coordinates of the intersection rectangle
@@ -156,11 +159,11 @@ def test_scale():
         data['average_time'].append(av_time)
         data['picture_scale'].append(scale)
         data['precision'].append(precision)
-    plt.plot('picture_scale','average_time',data=data,label='average_time')
-    plt.plot('picture_scale','precision',data=data,label='precision')
-    plt.ylabel('precision/time(s)')
-    plt.xlabel('picture scale')
-    plt.title('Effect of picture size in hand detector with large pictures')
+    plt.plot('picture_scale','average_time',data=data,label='Average Time')
+    plt.plot('picture_scale','precision',data=data,label='Precision')
+    plt.ylabel('Precision(%)/Time(s)')
+    plt.xlabel('Picture Scale')
+    plt.title('Effect of picture size in face detector with large image')
     plt.legend()
     plt.show()
 test_scale()
